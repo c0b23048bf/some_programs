@@ -1,15 +1,10 @@
+import heapq
+
 def addh(h,a):
-    if len(h) == 0:
-        h = [a]
-    else:
-        h.append(a)
-    return h
+    heapq.heappush(h,-a)
 
 def delh(h):
-    m = max(h)
-    mi = h.index(m)
-    x = h.pop(mi)
-    return h
+    return -heapq.heappop(h)
 
 def main():
     h = []
@@ -17,12 +12,13 @@ def main():
         g = input("数値の追加はaddh,最大値の取り出しはdelh,やめる場合はbreakを入れよ：")
         if g == "addh":
             a = input("入れる値を入れよ")
-            h = addh(h,a)
+            addh(h,int(a))
         elif g == "delh":
-            h = delh(h)
+            s = delh(h)
         elif g == "break":
             break
-        print(h)
+        
+        print([-i for i in h])
 
 if __name__ == '__main__':
     main()
