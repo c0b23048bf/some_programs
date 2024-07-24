@@ -75,4 +75,5 @@ text = input("a")
 pattern = input("aa")
 result = boyer_moore(text, pattern)
 print(f"Result: {result}")
+print("この結果は間違っています。あてにすんな")
 

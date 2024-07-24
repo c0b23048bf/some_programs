@@ -49,21 +49,25 @@ def print_all_distances(distances):
     for vertex, distance in distances.items():
         print(f"頂点 {vertex}: {distance}")
 
-# グラフの例 (隣接リスト)
-graph = {
-    'v1': {'v2': 25, 'v3': 15},
-    'v2': {'v1': 25, 'v3': 30, 'v4': 10, 'v6': 30},
-    'v3': {'v1': 15, 'v2': 30, 'v6': 35},
-    'v4': {'v2': 10, 'v5': 20, 'v7': 40},
-    'v5': {'v1': 40, 'v4': 20, 'v7': 25},
-    'v6': {'v2': 30, 'v3': 35, 'v7': 10},
-    'v7': {'v4': 40, 'v5': 25, 'v6': 10}
-}
+def main():
+    # グラフの例 (隣接リスト)
+    graph = {
+        'v1': {'v2': 25, 'v3': 15},
+        'v2': {'v1': 25, 'v3': 30, 'v4': 10, 'v6': 30},
+        'v3': {'v1': 15, 'v2': 30, 'v6': 35},
+        'v4': {'v2': 10, 'v5': 20, 'v7': 40},
+        'v5': {'v1': 40, 'v4': 20, 'v7': 25},
+        'v6': {'v2': 30, 'v3': 35, 'v7': 10},
+        'v7': {'v4': 40, 'v5': 25, 'v6': 10}
+    }
 
-start = 'v1'
-end = 'v7'
-distances, previous_vertices = dijkstra(graph, start)
-path, distance = shortest_path(graph, start, end)
-print(f"最短経路: {path}")
-print(f"最短距離: {distance}")
-print_all_distances(distances)
+    start = 'v1'
+    end = 'v7'
+    distances, previous_vertices = dijkstra(graph, start)
+    path, distance = shortest_path(graph, start, end)
+    print(f"最短経路: {path}")
+    print(f"最短距離: {distance}")
+    print_all_distances(distances)
+
+if __name__ == '__main__':
+    main()

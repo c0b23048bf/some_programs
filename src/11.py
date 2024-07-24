@@ -1,5 +1,5 @@
 import numpy as np
-
+print("適宜、行列と初期値の設定を変えること")
 # 行列Aの定義
 A = np.array([[8, 2],
               [2, 5]])
