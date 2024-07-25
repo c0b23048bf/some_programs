@@ -1,81 +1,51 @@
-# Thanks for gpt
+# Thanks for gpt and s.i
 
-def boyer_moore(text, pattern):
-    def create_bad_char_table(pattern):
-        max_char = max(map(ord, pattern)) + 1
-        bad_char_table = [-1] * max_char
-        for i, char in enumerate(pattern):
-            bad_char_table[ord(char)] = i
-        return bad_char_table
+def create_bad_char_table(pattern):
+    max_char = max(map(ord, pattern)) + 1
+    bad_char_table = [-1] * max_char
+    for i, char in enumerate(pattern):
+        bad_char_table[ord(char)] = i
+    return bad_char_table
 
-    def create_good_suffix_table(pattern):
-        m = len(pattern)
-        good_suffix_table = [-1] * m
-        last_prefix_index = m
-
-        for i in reversed(range(m)):
-            if is_prefix(pattern, i + 1):
-                last_prefix_index = i + 1
-            good_suffix_table[m - 1 - i] = last_prefix_index - i + m - 1
-
-        for i in range(m - 1):
-            slen = suffix_length(pattern, i)
-            good_suffix_table[slen] = m - 1 - i + slen
-
-        return good_suffix_table
-
-    def is_prefix(pattern, p):
-        m = len(pattern)
-        j = 0
-        for i in range(p, m):
-            if pattern[i] != pattern[j]:
-                return False
-            j += 1
-        return True
-
-    def suffix_length(pattern, p):
-        m = len(pattern)
-        length = 0
-        j = m - 1
-        i = p
-        while i >= 0 and pattern[i] == pattern[j]:
-            length += 1
-            i -= 1
-            j -= 1
-        return length
-
+def boyer_moore_analysis(text, pattern,w1,w2):
     n = len(text)
     m = len(pattern)
     if m == 0:
         return 0
 
+    # 配列 L を生成
     bad_char_table = create_bad_char_table(pattern)
-    good_suffix_table = create_good_suffix_table(pattern)
+    
+    # 各文字の値を表示
+    print(f"L[{w1}] の値を半角数字: {bad_char_table[ord(w1)]}")
+    print(f"L[{w2}] の値を半角数字: {bad_char_table[ord(w2)]}")
 
+    # シフト回数の計算
+    shifts = []
     s = 0
     while s <= n - m:
-        print(f"Shift: {s}")  # 探索の過程を出力
         j = m - 1
-
         while j >= 0 and pattern[j] == text[s + j]:
-            print(f"Comparing pattern[{j}] and text[{s + j}]: {pattern[j]} == {text[s + j]}")  # 探索の過程を出力
             j -= 1
 
         if j < 0:
-            print(f"Pattern found at index {s}")  # パターンが見つかった位置を出力
-            return s
+            shifts.append(0)
+            s += 1
         else:
             bad_char_shift = j - bad_char_table[ord(text[s + j])] if ord(text[s + j]) < len(bad_char_table) else j + 1
-            good_suffix_shift = good_suffix_table[j] if j < m - 1 else 1
-            s += max(bad_char_shift, good_suffix_shift)
+            s += max(1, bad_char_shift)
+            shifts.append(max(1, bad_char_shift))
 
-    print("Pattern not found")  # パターンが見つからなかった場合のメッセージ
-    return -1
+    # 各シフト回数を表示
+    for i, shift in enumerate(shifts[:4]):
+        print(f"{i+1}回目に右にずらす文字数を半角数字: {shift}")
+def main():
+    text = input("テキストを入力してください: ")
+    pattern = input("パターンを入力してください: ")
+    w1 = input("１つ目の文字を入力してください。例）配列L[?]: ")
+    w2 = input("２つ目の文字を入力してください。例）配列L[?]: ")
+    boyer_moore_analysis(text, pattern,w1,w2)
 
-# 使用例
-text = input("a")
-pattern = input("aa")
-result = boyer_moore(text, pattern)
-print(f"Result: {result}")
-print("この結果は間違っています。あてにすんな")
+if __name__ == '__main__':
+    main()
 
