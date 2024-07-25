@@ -1,4 +1,4 @@
-#クイックソート
+# Thanks for gpt and s.i
 
 import re
 
