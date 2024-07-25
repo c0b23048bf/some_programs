@@ -1,3 +1,5 @@
+# Thanks for gpt
+
 import numpy as np
 print("適宜、行列と初期値の設定を変えること")
 # 行列Aの定義

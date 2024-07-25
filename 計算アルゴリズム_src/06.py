@@ -1,3 +1,5 @@
+# Thanks for gpt
+
 def boyer_moore(text, pattern):
     def create_bad_char_table(pattern):
         max_char = max(map(ord, pattern)) + 1

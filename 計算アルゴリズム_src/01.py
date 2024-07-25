@@ -1,3 +1,5 @@
+# Thanks for gpt and s.i
+
 import struct
 
 def float_to_ieee754(num):

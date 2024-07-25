@@ -8,6 +8,7 @@ def dijkstra(graph, start):
     distances[start] = 0  # 開始点の距離は0
     # 各頂点の前の頂点を記録する辞書
     previous_vertices = {vertex: None for vertex in graph}
+    print(distances)
     # 優先度付きキューを初期化
     priority_queue = [(0, start)]
 
@@ -27,6 +28,19 @@ def dijkstra(graph, start):
                 distances[neighbor] = distance
                 previous_vertices[neighbor] = current_vertex
                 heapq.heappush(priority_queue, (distance, neighbor))
+        
+        n = distances.keys()
+        n = list(n)
+        nn = n[0]
+        
+        for i in distances.keys():
+            hh = graph[i]
+            try:
+                if distances[i] > hh[nn]:
+                    distances[i] = hh[nn]
+            except:
+                continue
+            
 
     return distances, previous_vertices
 
